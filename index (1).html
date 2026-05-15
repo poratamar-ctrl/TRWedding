@@ -1,0 +1,1341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Tamar &amp; Renata · 31 May 2026</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Italiana&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --bg:        #FCF8F2;
+    --paper:    rgba(255, 252, 246, .55);
+    --paper-s:  rgba(255, 252, 246, .82);
+    --ink:      #3A2A22;
+    --ink-soft: #6B5448;
+    --ink-mute: #9A8578;
+    --blush:    #F2D7CE;
+    --peach:    #EFB8A0;
+    --rose:     #E6A39B;
+    --gold:     #C8A26B;
+    --line:     rgba(58,42,34,.10);
+
+    --display: "Instrument Serif", "Cormorant Garamond", "Playfair Display", Georgia, serif;
+    --body:    "Outfit", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono:    "JetBrains Mono", ui-monospace, monospace;
+
+    --ease:    cubic-bezier(.22,.61,.36,1);
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0;color:var(--ink);font-family:var(--body);font-weight:400;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  html{scroll-behavior:smooth;scroll-padding-top:80px}
+  body{
+    overflow-x:hidden;
+    background-color:var(--bg);
+    background-image:
+      radial-gradient(60vw 55vh at 88% -10%, rgba(239,184,160,.28), transparent 60%),
+      radial-gradient(55vw 45vh at -12% 28%,  rgba(230,163,155,.22), transparent 60%),
+      radial-gradient(50vw 50vh at 30% 110%,  rgba(200,162,107,.18), transparent 60%),
+      radial-gradient(60vw 50vh at 100% 70%,  rgba(242,215,206,.30), transparent 60%);
+    background-attachment:fixed;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit}
+  ::selection{background:var(--peach);color:var(--ink)}
+
+  /* type primitives */
+  .display{font-family:var(--display);font-weight:400;letter-spacing:-0.01em;line-height:1.02}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft)}
+
+  /* layout */
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+  @media (max-width:640px){.wrap{padding:0 20px}}
+
+  /* ─────────── side rail (desktop) ─────────── */
+  .siderail{position:fixed;top:50%;left:24px;transform:translateY(-50%);z-index:55;display:none;flex-direction:column;gap:6px;pointer-events:auto}
+  @media (min-width:1024px){.siderail{display:flex}}
+  .siderail a{display:flex;align-items:center;gap:14px;padding:10px 14px 10px 12px;border-radius:999px;background:rgba(255,252,246,.6);border:1px solid var(--line);backdrop-filter:blur(10px) saturate(140%);-webkit-backdrop-filter:blur(10px) saturate(140%);color:var(--ink-soft);font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;transition:transform .3s var(--ease), background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), padding-right .3s var(--ease);box-shadow:0 10px 28px -18px rgba(58,42,34,.18)}
+  .siderail a .dot{width:7px;height:7px;border-radius:50%;background:var(--ink-mute);transition:background .3s var(--ease), transform .3s var(--ease)}
+  .siderail a .lbl{opacity:.85;transition:opacity .25s var(--ease)}
+  .siderail a:hover{color:var(--ink);background:#FFFCF6;transform:translateX(4px);border-color:rgba(230,163,155,.45)}
+  .siderail a:hover .dot{background:var(--rose);transform:scale(1.2)}
+  .siderail a.active{background:linear-gradient(90deg, rgba(242,215,206,.7), rgba(255,252,246,.85));color:var(--ink);border-color:rgba(230,163,155,.5);padding-right:18px}
+  .siderail a.active .dot{background:var(--rose);transform:scale(1.4)}
+  /* hide hamburger when rail visible */
+  @media (min-width:1024px){.menu-btn{display:none}}
+
+  /* ─────────── top floating chrome ─────────── */
+  .topbar{position:fixed;inset:0 0 auto 0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;pointer-events:none;transition:background .3s var(--ease), backdrop-filter .3s var(--ease), border-color .3s var(--ease);border-bottom:1px solid transparent}
+  .topbar.scrolled{background:rgba(252,248,242,.7);backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);border-bottom-color:var(--line)}
+  .topbar > *{pointer-events:auto}
+  .brand{font-family:var(--display);font-style:italic;font-size:24px;letter-spacing:.01em;color:var(--ink);transition:opacity .3s var(--ease)}
+  .brand .amp{color:var(--rose);font-weight:500;margin:0 3px}
+  .topbar .stamp{display:none;font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mute);background:rgba(255,252,246,.75);padding:8px 14px;border-radius:999px;border:1px solid var(--line)}
+  @media (min-width:900px){.topbar .stamp{display:inline-block}}
+
+  .menu-btn{appearance:none;border:1px solid var(--line);background:rgba(255,252,246,.78);padding:10px 16px 10px 14px;border-radius:999px;display:inline-flex;align-items:center;gap:10px;color:var(--ink);cursor:pointer;font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;transition:transform .25s var(--ease), background .25s var(--ease), box-shadow .25s var(--ease)}
+  .menu-btn:hover{background:#fff;box-shadow:0 8px 24px -10px rgba(58,42,34,.18)}
+  .menu-btn .bars{display:flex;flex-direction:column;gap:3px}
+  .menu-btn .bars i{display:block;width:14px;height:1.5px;background:var(--ink)}
+
+  /* ─────────── drawer ─────────── */
+  .scrim{position:fixed;inset:0;background:rgba(58,42,34,.32);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .35s var(--ease);z-index:70}
+  .scrim.open{opacity:1;pointer-events:auto}
+
+  .drawer{position:fixed;top:0;right:0;bottom:0;width:min(380px, 88vw);background:#FFFCF6;border-left:1px solid var(--line);z-index:80;transform:translateX(105%);transition:transform .42s var(--ease);display:flex;flex-direction:column;box-shadow:-30px 0 60px -20px rgba(58,42,34,.18)}
+  .drawer.open{transform:translateX(0)}
+  .drawer-head{display:flex;justify-content:space-between;align-items:center;padding:24px 28px;border-bottom:1px solid var(--line)}
+  .drawer-head .lab{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mute)}
+  .drawer-close{appearance:none;background:transparent;border:0;color:var(--ink);font-size:28px;line-height:1;cursor:pointer;padding:4px 8px;border-radius:8px}
+  .drawer-close:hover{background:rgba(58,42,34,.05)}
+  .drawer-nav{padding:14px 12px 8px;display:flex;flex-direction:column;gap:2px;flex:1;overflow:auto}
+  .drawer-nav a{display:flex;align-items:baseline;gap:14px;padding:16px 18px;border-radius:14px;color:var(--ink);transition:background .2s var(--ease), color .2s var(--ease), transform .25s var(--ease);font-family:var(--display);font-size:30px;font-weight:400;line-height:1.05;letter-spacing:-0.005em}
+  .drawer-nav a:hover{background:rgba(242,215,206,.5);transform:translateX(4px)}
+  .drawer-nav a.active{background:linear-gradient(90deg, rgba(242,215,206,.65), rgba(255,252,246,0));color:var(--ink)}
+  .drawer-nav a .num{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--ink-mute);min-width:30px;font-weight:500}
+  .drawer-nav a em{font-style:italic;color:var(--rose);font-weight:400}
+  .drawer-foot{padding:20px 28px 28px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+  .drawer-foot .big{font-family:var(--display);font-style:italic;font-size:22px;color:var(--ink)}
+  .drawer-foot .small{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute)}
+
+  /* ─────────── hero ─────────── */
+  .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:130px 0 80px;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:42px;align-items:center}
+  @media (min-width:980px){.hero-grid{grid-template-columns:1.2fr .8fr;gap:60px}}
+  .hero-meta{display:flex;align-items:center;gap:14px;margin-bottom:28px;opacity:0;transform:translateY(8px);animation:rise .9s var(--ease) .1s forwards}
+  .hero-meta .pip{width:8px;height:8px;border-radius:50%;background:var(--rose)}
+  .hero-title{font-size:clamp(60px, 13vw, 168px);font-weight:300;opacity:0;transform:translateY(20px);animation:rise 1s var(--ease) .25s forwards}
+  .hero-title .and{display:inline-block;font-style:italic;color:var(--rose);font-weight:400;margin:0 .06em;transform:translateY(.03em)}
+  .hero-sub{margin-top:24px;display:flex;flex-direction:column;gap:8px;opacity:0;transform:translateY(12px);animation:rise 1s var(--ease) .45s forwards}
+  .hero-sub .row{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline}
+  .hero-sub .row .k{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute);min-width:78px}
+  .hero-sub .row .v{font-size:17px;color:var(--ink)}
+
+  @keyframes rise{to{opacity:1;transform:translateY(0)}}
+  @keyframes float-in{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+  /* date card */
+  .datecard{background:var(--paper);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border:1px solid var(--line);border-radius:22px;padding:28px 30px 26px;position:relative;overflow:hidden;opacity:0;transform:translateY(20px);animation:rise 1s var(--ease) .6s forwards;box-shadow:0 20px 60px -30px rgba(58,42,34,.18)}
+  .datecard::before{content:"";position:absolute;inset:auto -60px -60px auto;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle at 30% 30%, var(--peach), var(--blush) 55%, transparent 75%);opacity:.55;filter:blur(8px);pointer-events:none}
+  .datecard .month{font-family:var(--mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft)}
+  .datecard .day{font-family:var(--display);font-size:clamp(110px, 16vw, 160px);font-weight:400;line-height:1;letter-spacing:-0.02em;margin:6px 0 2px;color:var(--ink);font-variant-numeric:lining-nums}
+  .datecard .year{font-family:var(--mono);font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--ink-mute)}
+  .datecard hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+  .datecard .cd{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;text-align:center}
+  .datecard .cd .n{font-family:var(--display);font-size:30px;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+  .datecard .cd .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);margin-top:6px}
+  .datecard .footnote{display:flex;justify-content:space-between;align-items:center;margin-top:16px;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+  .datecard .footnote .pip{width:6px;height:6px;border-radius:50%;background:var(--rose);display:inline-block;margin-right:8px;vertical-align:middle}
+
+  /* hero confetti */
+  .confetti{position:absolute;inset:0;pointer-events:none;z-index:0}
+  .confetti span{position:absolute;border-radius:50%;opacity:.55;will-change:transform}
+  .hero > .wrap{position:relative;z-index:1}
+
+  /* ─────────── sections ─────────── */
+  section.s{padding:100px 0;position:relative}
+  @media (max-width:640px){section.s{padding:70px 0}}
+  .s-head{display:flex;flex-direction:column;gap:16px;margin-bottom:52px;max-width:780px}
+  .s-num{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mute)}
+  .s-title{font-size:clamp(40px,6.4vw,72px)}
+  .s-title em{font-style:italic;color:var(--rose);font-weight:400}
+  .s-sub{font-size:19px;color:var(--ink-soft);line-height:1.55;max-width:62ch;text-wrap:pretty}
+
+  /* reveal-on-scroll */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease), transform .9s var(--ease)}
+  .reveal.in{opacity:1;transform:translateY(0)}
+  .reveal.d1{transition-delay:.06s}
+  .reveal.d2{transition-delay:.12s}
+  .reveal.d3{transition-delay:.18s}
+  .reveal.d4{transition-delay:.24s}
+
+  /* event card */
+  .event{display:grid;grid-template-columns:1fr;gap:0;border:1px solid var(--line);border-radius:26px;overflow:hidden;background:var(--paper);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);box-shadow:0 24px 60px -32px rgba(58,42,34,.16)}
+  @media (min-width:900px){.event{grid-template-columns:1.05fr 1fr}}
+  .event .copy{padding:44px 40px}
+  .event .facts{padding:40px;background:rgba(246,237,226,.55);border-top:1px solid var(--line);position:relative}
+  @media (min-width:900px){.event .facts{border-top:0;border-left:1px solid var(--line)}}
+  @media (max-width:640px){.event .copy,.event .facts{padding:32px 26px}}
+
+  .event h3{font-family:var(--display);font-size:clamp(36px,4.6vw,56px);font-weight:400;margin:0 0 14px;line-height:1.05;letter-spacing:-0.005em}
+  .event h3 .where{display:block;font-style:italic;color:var(--rose);font-size:.6em;margin-top:6px}
+  .event p{font-size:17px;line-height:1.7;color:var(--ink-soft);margin:0 0 14px;text-wrap:pretty}
+  .event p strong{color:var(--ink);font-weight:500}
+
+  /* facts list */
+  .meta{display:flex;flex-direction:column;gap:0}
+  .meta .row{display:grid;grid-template-columns:96px 1fr;gap:18px;align-items:baseline;padding:14px 0;border-top:1px dashed var(--line)}
+  .meta .row:first-child{border-top:0;padding-top:0}
+  .meta .row:last-child{padding-bottom:0}
+  .meta .k{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);padding-top:4px}
+  .meta .v{font-size:19px;line-height:1.4;color:var(--ink);font-weight:400;text-wrap:pretty}
+  .meta .v.big{font-family:var(--display);font-size:30px;font-weight:400;letter-spacing:-0.005em;line-height:1.05;color:var(--ink)}
+  .meta .v a{border-bottom:1px solid var(--line);transition:border-color .2s var(--ease), color .2s var(--ease)}
+  .meta .v a:hover{border-bottom-color:var(--rose);color:var(--ink)}
+  @media (max-width:520px){
+    .meta .row{grid-template-columns:1fr;gap:4px}
+    .meta .v{font-size:18px}
+    .meta .v.big{font-size:26px}
+  }
+
+  .stamp{position:absolute;top:24px;right:24px;font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);display:flex;align-items:center;gap:8px}
+  .stamp .dot{width:6px;height:6px;border-radius:50%;background:var(--rose)}
+
+  /* ceremony emphasis */
+  .ceremony-callout{margin:24px 0 6px;padding:22px 24px;border-radius:18px;background:linear-gradient(135deg, var(--peach), var(--blush));color:var(--ink);display:flex;align-items:center;gap:20px;box-shadow:0 14px 40px -22px rgba(239,184,160,.6)}
+  .ceremony-callout .big{font-family:var(--display);font-size:48px;line-height:1;font-weight:500;letter-spacing:-0.01em}
+  .ceremony-callout .small{font-size:15px;line-height:1.5}
+  .ceremony-callout .small b{font-weight:600;color:var(--ink)}
+
+  /* transport callout */
+  .bus-callout{margin:24px 0 6px;padding:18px 20px;border-radius:18px;background:linear-gradient(135deg, rgba(255,252,246,.85), rgba(242,215,206,.45));border:1px solid var(--line);display:flex;align-items:center;gap:18px;color:var(--ink);overflow:hidden;position:relative}
+  .bus-callout .bus-svg{flex:0 0 auto;animation:bus-roll 9s ease-in-out infinite;filter:drop-shadow(0 6px 10px rgba(58,42,34,.18))}
+  .bus-callout .bus-title{font-family:var(--display);font-size:24px;line-height:1.1;font-weight:500;letter-spacing:-0.005em;margin-bottom:4px}
+  .bus-callout .bus-sub{font-size:14.5px;line-height:1.5;color:var(--ink-soft)}
+  @keyframes bus-roll{0%,100%{transform:translateX(0)} 50%{transform:translateX(6px)}}
+  @media (max-width:520px){
+    .bus-callout{flex-direction:column;align-items:flex-start;gap:12px}
+    .bus-callout .bus-svg{transform:scale(.85);transform-origin:left center}
+    .bus-callout .bus-title{font-size:22px}
+  }
+
+  /* image drop slot */
+  .chamber-slot{margin:22px 0 8px}
+  .chamber-slot image-slot{display:block;width:100%;aspect-ratio:16/10;border-radius:16px;overflow:hidden;box-shadow:0 18px 40px -20px rgba(58,42,34,.28)}
+  .chamber-cap{margin-top:10px;font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute);text-align:center}
+
+  /* ─────────── favourites ─────────── */
+  .favs{display:grid;grid-template-columns:1fr;gap:14px}
+  @media (min-width:720px){.favs{grid-template-columns:repeat(2,1fr)}}
+  .fav{position:relative;background:var(--paper);backdrop-filter:blur(12px) saturate(140%);-webkit-backdrop-filter:blur(12px) saturate(140%);border:1px solid var(--line);border-radius:20px;padding:26px 26px 24px;display:flex;flex-direction:column;gap:10px;transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease), background .4s var(--ease);opacity:0;transform:translateY(28px);overflow:hidden}
+  .fav.in{opacity:1;transform:translateY(0)}
+  .fav:hover{transform:translateY(-4px);box-shadow:0 24px 50px -22px rgba(58,42,34,.22);border-color:rgba(230,163,155,.5);background:rgba(255,252,246,.78)}
+  .fav::after{content:"";position:absolute;inset:auto -30px -30px auto;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 30% 30%, var(--peach), transparent 70%);opacity:0;transition:opacity .4s var(--ease);pointer-events:none}
+  .fav:hover::after{opacity:.55}
+  .fav-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .fav-name{font-family:var(--display);font-size:32px;font-weight:500;letter-spacing:-0.005em;line-height:1.05;transition:transform .4s var(--ease)}
+  .fav:hover .fav-name{transform:translateX(2px)}
+  .fav-num{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--ink-mute);background:rgba(58,42,34,.04);padding:4px 8px;border-radius:6px}
+  .fav-emoji{position:absolute;top:18px;right:54px;width:46px;height:46px;display:flex;align-items:center;justify-content:center;font-size:26px;line-height:1;background:rgba(255,252,246,.85);border:1px solid var(--line);border-radius:50%;box-shadow:0 8px 18px -8px rgba(58,42,34,.25);transition:transform .5s var(--ease);will-change:transform;pointer-events:none}
+  .fav:hover .fav-emoji{animation:wiggle .9s ease-in-out 1}
+  @keyframes wiggle{
+    0%   { transform: rotate(0deg) scale(1) }
+    20%  { transform: rotate(-12deg) scale(1.12) }
+    40%  { transform: rotate(10deg) scale(1.12) }
+    60%  { transform: rotate(-8deg) scale(1.1) }
+    80%  { transform: rotate(6deg) scale(1.06) }
+    100% { transform: rotate(0deg) scale(1) }
+  }
+  .fav .fav-h{padding-right:60px}
+  @media (max-width:520px){
+    .fav-emoji{width:40px;height:40px;font-size:22px;right:48px;top:16px}
+  }
+  .fav-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--rose)}
+  .fav-desc{font-size:15.5px;line-height:1.6;color:var(--ink-soft);margin:0}
+  .fav-picks{display:flex;flex-direction:column;gap:8px;margin-top:8px;padding-top:14px;border-top:1px solid var(--line)}
+  .fav-pick{display:flex;gap:12px;align-items:baseline;font-size:14.5px;color:var(--ink)}
+  .fav-pick .who{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-mute);min-width:74px}
+  .fav-map{margin-top:8px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);display:inline-flex;align-items:center;gap:8px;align-self:flex-start;border-bottom:1px solid var(--line);padding-bottom:3px;transition:border-color .2s var(--ease), color .2s var(--ease), gap .25s var(--ease)}
+  .fav-map:hover{color:var(--rose);border-bottom-color:var(--rose);gap:12px}
+  .fav-map svg{transition:transform .25s var(--ease)}
+  .fav:hover .fav-map svg{transform:translate(2px,-2px)}
+
+  /* ─────────── welcome / photos ─────────── */
+  .us-grid{display:grid;grid-template-columns:1fr;gap:22px;align-items:center}
+  @media (min-width:880px){.us-grid{grid-template-columns:.95fr 1.05fr;gap:60px}}
+  .us-card{padding:36px;background:var(--paper);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border-radius:22px;border:1px solid var(--line);box-shadow:0 24px 60px -32px rgba(58,42,34,.16)}
+  .us-card .sig{font-family:var(--display);font-style:italic;font-size:32px;color:var(--rose);margin-top:20px;display:block}
+  .us-card p{font-size:17.5px;line-height:1.7;color:var(--ink);margin:0 0 14px;text-wrap:pretty}
+  .us-card p:last-of-type{margin-bottom:0}
+
+  .photo-collage{position:relative;aspect-ratio:1/1.05;min-height:420px}
+  .photo-collage figure{position:absolute;margin:0;background:#FFFCF6;padding:10px;border-radius:6px;box-shadow:0 18px 40px -16px rgba(58,42,34,.32), 0 0 0 1px rgba(58,42,34,.05);transition:transform .5s var(--ease);overflow:hidden}
+  .photo-collage figure img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:2px}
+  .photo-collage .p1{top:0;left:4%;width:52%;transform:rotate(-4deg);z-index:2}
+  .photo-collage .p2{top:8%;right:0;width:46%;transform:rotate(5deg);z-index:1}
+  .photo-collage .p3{bottom:0;left:12%;width:42%;transform:rotate(3deg);z-index:3}
+  .photo-collage .p4{bottom:4%;right:2%;width:44%;transform:rotate(-6deg);z-index:2}
+  .photo-collage figure:hover{transform:rotate(0) scale(1.03);z-index:9}
+  @media (max-width:520px){.photo-collage{min-height:380px}}
+
+  /* ─────────── footer ─────────── */
+  footer{padding:90px 0 70px;border-top:1px solid var(--line);margin-top:40px;background:linear-gradient(180deg, transparent, rgba(242,215,206,.25))}
+  .foot{display:flex;flex-direction:column;gap:22px;align-items:center;text-align:center}
+  .foot .big{font-family:var(--display);font-style:italic;font-size:clamp(38px,5vw,52px);line-height:1.1;color:var(--ink);font-weight:400}
+  .foot .small{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-mute)}
+
+  /* section divider ornament */
+  .orn{display:flex;align-items:center;gap:14px;color:var(--rose);font-family:var(--display);font-style:italic;font-size:22px}
+  .orn::before, .orn::after{content:"";flex:1;height:1px;background:var(--line)}
+  .orn::before{max-width:160px}
+  .orn::after{max-width:160px}
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+    .reveal,.fav{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar" id="topbar">
+  <a class="brand" href="#top">Tamar <span class="amp">&amp;</span> Renata</a>
+  <div style="display:flex;align-items:center;gap:12px">
+    <span class="stamp">31 · 05 · 2026 · London</span>
+    <button class="menu-btn" id="menuBtn" aria-controls="drawer" aria-expanded="false">
+      <span class="bars"><i></i><i></i><i></i></span>
+      <span>Menu</span>
+    </button>
+  </div>
+</header>
+
+<div class="scrim" id="scrim"></div>
+
+<nav class="siderail" id="siderail" aria-label="Sections">
+  <a href="#welcome"><span class="dot"></span><span class="lbl">00 Welcome</span></a>
+  <a href="#lunch"><span class="dot"></span><span class="lbl">01 Lunch</span></a>
+  <a href="#ceremony"><span class="dot"></span><span class="lbl">02 Ceremony</span></a>
+  <a href="#reception"><span class="dot"></span><span class="lbl">03 Reception</span></a>
+  <a href="#favourites"><span class="dot"></span><span class="lbl">04 Favourites</span></a>
+</nav>
+
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-head">
+    <span class="lab">Navigate</span>
+    <button class="drawer-close" id="drawerClose" aria-label="Close menu">&times;</button>
+  </div>
+  <nav class="drawer-nav" id="drawerNav">
+    <a href="#welcome"><span class="num">00</span><span>Welcome</span></a>
+    <a href="#lunch"><span class="num">01</span><span>The <em>Welcome Lunch</em></span></a>
+    <a href="#ceremony"><span class="num">02</span><span>The <em>Ceremony</em></span></a>
+    <a href="#reception"><span class="num">03</span><span>The <em>Reception</em></span></a>
+    <a href="#favourites"><span class="num">04</span><span>Our <em>Favourites</em></span></a>
+  </nav>
+  <div class="drawer-foot">
+    <span class="big">Sunday, 31 May 2026</span>
+    <span class="small">Camden Town Hall &middot; 12:00 sharp</span>
+  </div>
+</aside>
+
+<div id="top"></div>
+<div id="app"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- image-slot custom element -->
+<script>
+(()=>{
+  const STATE_FILE='.image-slots.state.json';
+  const MAX_DIM=1200;
+  const ACCEPT=['image/png','image/jpeg','image/webp','image/avif'];
+  const subs=new Set();
+  let slots={};
+  const tombstones=new Set();
+  let loaded=false;
+  let loadP=null;
+  function load(){
+    if(loadP)return loadP;
+    loadP=fetch(STATE_FILE).then(r=>r.ok?r.json():null).then(j=>{
+      if(j&&typeof j==='object'){
+        const merged=Object.assign({},j,slots);
+        for(const k in slots){if(merged[k]&&!merged[k].u&&j[k]){merged[k].u=typeof j[k]==='string'?j[k]:j[k].u;}}
+        for(const id of tombstones)delete merged[id];
+        slots=merged;
+      }
+      tombstones.clear();
+    }).catch(()=>{}).then(()=>{loaded=true;subs.forEach(fn=>fn());});
+    return loadP;
+  }
+  let saving=false,saveDirty=false;
+  function save(){
+    if(saving){saveDirty=true;return;}
+    const w=window.omelette&&window.omelette.writeFile;
+    if(!w)return;
+    saving=true;
+    Promise.resolve(w(STATE_FILE,JSON.stringify(slots))).catch(()=>{}).then(()=>{saving=false;if(saveDirty){saveDirty=false;save();}});
+  }
+  const S_MAX=5;
+  const clampS=s=>Math.max(1,Math.min(S_MAX,s));
+  function getSlot(id){const v=slots[id];if(!v)return null;return typeof v==='string'?{u:v,s:1,x:0,y:0}:v;}
+  function setSlot(id,val){
+    if(!id)return;
+    if(val){slots[id]=val;tombstones.delete(id);}else{delete slots[id];if(!loaded)tombstones.add(id);}
+    subs.forEach(fn=>fn());
+    if(loaded)save();else load().then(save);
+  }
+  async function toDataUrl(file,targetW){
+    const bitmap=await createImageBitmap(file);
+    try{
+      const cap=Math.min(MAX_DIM,Math.max(1,Math.round(targetW*2))||MAX_DIM);
+      const scale=Math.min(1,cap/Math.max(bitmap.width,bitmap.height));
+      const w=Math.max(1,Math.round(bitmap.width*scale));
+      const h=Math.max(1,Math.round(bitmap.height*scale));
+      const canvas=document.createElement('canvas');
+      canvas.width=w;canvas.height=h;
+      canvas.getContext('2d').drawImage(bitmap,0,0,w,h);
+      return canvas.toDataURL('image/webp',0.85);
+    }finally{bitmap.close&&bitmap.close();}
+  }
+  const stylesheet=
+    ':host{display:inline-block;position:relative;vertical-align:top;font:13px/1.3 system-ui,-apple-system,sans-serif;color:rgba(0,0,0,.55);width:240px;height:160px}'+
+    '.frame{position:absolute;inset:0;overflow:hidden;background:rgba(0,0,0,.04)}'+
+    '.frame img{position:absolute;max-width:none;transform:translate(-50%,-50%);-webkit-user-drag:none;user-select:none;touch-action:none}'+
+    '.spill{position:absolute;transform:translate(-50%,-50%);display:none;z-index:1;cursor:grab;touch-action:none}'+
+    ':host([data-panning]) .spill{cursor:grabbing}'+
+    '.spill .ghost{position:absolute;inset:0;width:100%;height:100%;opacity:.35;pointer-events:none;-webkit-user-drag:none;user-select:none;box-shadow:0 0 0 1px rgba(0,0,0,.2),0 12px 32px rgba(0,0,0,.2)}'+
+    '.spill .handle{position:absolute;width:12px;height:12px;border-radius:50%;background:#fff;box-shadow:0 0 0 1.5px #c96442,0 1px 3px rgba(0,0,0,.3);transform:translate(-50%,-50%)}'+
+    '.spill .handle[data-c=nw]{left:0;top:0;cursor:nwse-resize}'+
+    '.spill .handle[data-c=ne]{left:100%;top:0;cursor:nesw-resize}'+
+    '.spill .handle[data-c=sw]{left:0;top:100%;cursor:nesw-resize}'+
+    '.spill .handle[data-c=se]{left:100%;top:100%;cursor:nwse-resize}'+
+    ':host([data-reframe]){z-index:10}'+
+    ':host([data-reframe]) .spill{display:block}'+
+    ':host([data-reframe]) .frame{box-shadow:0 0 0 2px #c96442}'+
+    '.empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:12px;box-sizing:border-box;cursor:pointer;user-select:none}'+
+    '.empty svg{opacity:.45}'+
+    '.empty .cap{max-width:90%;font-weight:500;letter-spacing:.01em}'+
+    '.empty .sub{font-size:11px}'+
+    '.empty .sub u{text-underline-offset:2px;text-decoration-color:rgba(0,0,0,.25)}'+
+    '.empty:hover .sub u{color:rgba(0,0,0,.75);text-decoration-color:currentColor}'+
+    ':host([data-over]) .frame{outline:2px solid #c96442;outline-offset:-2px;background:rgba(201,100,66,.10)}'+
+    '.ring{position:absolute;inset:0;pointer-events:none;border:1.5px dashed rgba(0,0,0,.25);transition:border-color .12s}'+
+    ':host([data-over]) .ring{border-color:#c96442}'+
+    ':host([data-filled]) .ring{display:none}'+
+    '.ctl{position:absolute;top:100%;left:50%;transform:translateX(-50%);padding-top:8px;display:flex;gap:6px;opacity:0;pointer-events:none;transition:opacity .12s;z-index:2;white-space:nowrap}'+
+    ':host([data-filled][data-editable]:hover) .ctl,:host([data-reframe]) .ctl{opacity:1;pointer-events:auto}'+
+    '.ctl button{appearance:none;border:0;border-radius:6px;padding:5px 10px;cursor:pointer;background:rgba(0,0,0,.65);color:#fff;font:11px/1 system-ui,-apple-system,sans-serif;backdrop-filter:blur(6px)}'+
+    '.ctl button:hover{background:rgba(0,0,0,.8)}'+
+    '.err{position:absolute;left:8px;bottom:8px;right:8px;color:#b3261e;font-size:11px;background:rgba(255,255,255,.85);padding:4px 6px;border-radius:5px;pointer-events:none}';
+  const icon='<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>';
+  class ImageSlot extends HTMLElement{
+    static get observedAttributes(){return['shape','radius','mask','fit','position','placeholder','src','id'];}
+    constructor(){
+      super();
+      const root=this.attachShadow({mode:'open'});
+      root.innerHTML='<style>'+stylesheet+'</style><div class="frame" part="frame"><img part="image" alt="" draggable="false" style="display:none"><div class="empty" part="empty">'+icon+'<div class="cap"></div><div class="sub">or <u>browse files</u></div></div><div class="ring" part="ring"></div></div><div class="spill"><img class="ghost" alt="" draggable="false"><div class="handle" data-c="nw"></div><div class="handle" data-c="ne"></div><div class="handle" data-c="sw"></div><div class="handle" data-c="se"></div></div><div class="ctl"><button data-act="replace" title="Replace image">Replace</button><button data-act="clear" title="Remove image">Remove</button></div><input type="file" accept="'+ACCEPT.join(',')+'\" hidden>';
+      this._frame=root.querySelector('.frame');this._ring=root.querySelector('.ring');
+      this._img=root.querySelector('.frame img');this._empty=root.querySelector('.empty');
+      this._cap=root.querySelector('.cap');this._sub=root.querySelector('.sub');
+      this._spill=root.querySelector('.spill');this._ghost=root.querySelector('.ghost');
+      this._err=null;this._input=root.querySelector('input');
+      this._depth=0;this._gen=0;this._view={s:1,x:0,y:0};
+      this._subFn=()=>this._render();
+      this._empty.addEventListener('click',()=>this._input.click());
+      root.addEventListener('click',e=>{
+        const act=e.target&&e.target.getAttribute&&e.target.getAttribute('data-act');
+        if(act==='replace'){this._exitReframe(true);this._input.click();}
+        if(act==='clear'){this._exitReframe(false);this._gen++;this._local=null;if(this.id)setSlot(this.id,null);else this._render();}
+      });
+      this._input.addEventListener('change',()=>{const f=this._input.files&&this._input.files[0];if(f)this._ingest(f);this._input.value='';});
+      this._img.addEventListener('load',()=>this._applyView());
+      this.addEventListener('dblclick',e=>{if(!this.hasAttribute('data-editable')||!this._reframes())return;e.preventDefault();if(this.hasAttribute('data-reframe'))this._exitReframe(true);else this._enterReframe();});
+      this._spill.addEventListener('pointerdown',e=>{
+        if(e.button!==0||!this.hasAttribute('data-reframe'))return;
+        e.preventDefault();e.stopPropagation();
+        this._spill.setPointerCapture(e.pointerId);
+        const rect=this.getBoundingClientRect();const fw=rect.width||1,fh=rect.height||1;
+        const corner=e.target.getAttribute&&e.target.getAttribute('data-c');
+        let move;
+        if(corner){
+          const iw=this._img.naturalWidth||1,ih=this._img.naturalHeight||1;
+          const base=Math.max(fw/iw,fh/ih);const sx=corner.includes('e')?1:-1;const sy=corner.includes('s')?1:-1;
+          const s0=this._view.s;const w0=iw*base*s0,h0=ih*base*s0;
+          const cx0=(50+this._view.x)/100*fw;const cy0=(50+this._view.y)/100*fh;
+          const ox=cx0-sx*w0/2,oy=cy0-sy*h0/2;const diag0=Math.hypot(w0,h0);
+          const ux=sx*w0/diag0,uy=sy*h0/diag0;
+          move=ev=>{
+            const proj=(ev.clientX-rect.left-ox)*ux+(ev.clientY-rect.top-oy)*uy;
+            const s=clampS(s0*proj/diag0);const d=diag0*s/s0;
+            this._view.s=s;this._view.x=(ox+ux*d/2)/fw*100-50;this._view.y=(oy+uy*d/2)/fh*100-50;
+            this._clampView();this._applyView();
+          };
+        }else{
+          this.setAttribute('data-panning','');
+          const start={px:e.clientX,py:e.clientY,x:this._view.x,y:this._view.y};
+          move=ev=>{this._view.x=start.x+(ev.clientX-start.px)/fw*100;this._view.y=start.y+(ev.clientY-start.py)/fh*100;this._clampView();this._applyView();};
+        }
+        const up=()=>{
+          try{this._spill.releasePointerCapture(e.pointerId);}catch{}
+          this._spill.removeEventListener('pointermove',move);this._spill.removeEventListener('pointerup',up);this._spill.removeEventListener('pointercancel',up);
+          this.removeAttribute('data-panning');this._dragUp=null;
+        };
+        this._dragUp=up;
+        this._spill.addEventListener('pointermove',move);this._spill.addEventListener('pointerup',up);this._spill.addEventListener('pointercancel',up);
+      });
+      this.addEventListener('wheel',e=>{
+        if(!this.hasAttribute('data-reframe'))return;e.preventDefault();
+        const r=this.getBoundingClientRect();const cx=(e.clientX-r.left)/r.width*100-50;const cy=(e.clientY-r.top)/r.height*100-50;
+        const prev=this._view.s;const next=clampS(prev*Math.pow(1.0015,-e.deltaY));
+        if(next===prev)return;const k=next/prev;this._view.s=next;this._view.x=cx*(1-k)+this._view.x*k;this._view.y=cy*(1-k)+this._view.y*k;
+        this._clampView();this._applyView();
+      },{passive:false});
+    }
+    connectedCallback(){
+      if(!this.id&&!ImageSlot._warned){ImageSlot._warned=true;console.warn('<image-slot> without an id will not persist.');}
+      this.addEventListener('dragenter',this);this.addEventListener('dragover',this);this.addEventListener('dragleave',this);this.addEventListener('drop',this);
+      subs.add(this._subFn);
+      this._ro=new ResizeObserver(()=>this._render());this._ro.observe(this);
+      load();this._render();
+    }
+    disconnectedCallback(){
+      subs.delete(this._subFn);
+      this.removeEventListener('dragenter',this);this.removeEventListener('dragover',this);this.removeEventListener('dragleave',this);this.removeEventListener('drop',this);
+      if(this._ro){this._ro.disconnect();this._ro=null;}this._exitReframe(false);
+    }
+    _enterReframe(){
+      if(this.hasAttribute('data-reframe'))return;
+      this.setAttribute('data-reframe','');this._applyView();
+      this._outside=e=>{if(e.composedPath&&e.composedPath().includes(this))return;this._exitReframe(true);};
+      this._esc=e=>{if(e.key==='Escape')this._exitReframe(true);};
+      document.addEventListener('pointerdown',this._outside,true);document.addEventListener('keydown',this._esc,true);
+    }
+    _exitReframe(commit){
+      if(!this.hasAttribute('data-reframe'))return;if(this._dragUp)this._dragUp();
+      this.removeAttribute('data-reframe');this.removeAttribute('data-panning');
+      if(this._outside)document.removeEventListener('pointerdown',this._outside,true);
+      if(this._esc)document.removeEventListener('keydown',this._esc,true);
+      this._outside=this._esc=null;if(commit)this._commitView();
+    }
+    attributeChangedCallback(){if(this.shadowRoot)this._render();}
+    handleEvent(e){
+      if(e.type==='dragenter'||e.type==='dragover'){
+        e.preventDefault();e.stopPropagation();if(e.dataTransfer)e.dataTransfer.dropEffect='copy';
+        if(e.type==='dragenter')this._depth++;this.setAttribute('data-over','');
+      }else if(e.type==='dragleave'){if(--this._depth<=0){this._depth=0;this.removeAttribute('data-over');}}
+      else if(e.type==='drop'){
+        e.preventDefault();e.stopPropagation();this._depth=0;this.removeAttribute('data-over');
+        const f=e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0];if(f)this._ingest(f);
+      }
+    }
+    async _ingest(file){
+      this._setError(null);
+      if(!file||ACCEPT.indexOf(file.type)<0){this._setError('Drop a PNG, JPEG, WebP, or AVIF image.');return;}
+      const gen=++this._gen;
+      try{
+        const w=this.clientWidth||this.offsetWidth||MAX_DIM;const url=await toDataUrl(file,w);
+        if(gen!==this._gen)return;this._exitReframe(false);
+        const val={u:url,s:1,x:0,y:0};setSlot(this.id||'',val);
+        if(!this.id){this._local=val;this._render();}
+      }catch(err){if(gen!==this._gen)return;this._setError('Could not read that image.');console.warn('<image-slot> ingest failed:',err);}
+    }
+    _setError(msg){
+      if(this._err){this._err.remove();this._err=null;}if(!msg)return;
+      const d=document.createElement('div');d.className='err';d.textContent=msg;
+      this.shadowRoot.appendChild(d);this._err=d;
+      setTimeout(()=>{if(this._err===d){d.remove();this._err=null;}},3000);
+    }
+    _reframes(){return this.hasAttribute('data-filled')&&(this.getAttribute('fit')||'cover')==='cover';}
+    _geom(){const iw=this._img.naturalWidth,ih=this._img.naturalHeight;const fw=this.clientWidth,fh=this.clientHeight;if(!iw||!ih||!fw||!fh)return null;return{iw,ih,fw,fh,base:Math.max(fw/iw,fh/ih)};}
+    _clampView(){const g=this._geom();if(!g)return;const mx=Math.max(0,(g.iw*g.base*this._view.s/g.fw-1)*50);const my=Math.max(0,(g.ih*g.base*this._view.s/g.fh-1)*50);this._view.x=Math.max(-mx,Math.min(mx,this._view.x));this._view.y=Math.max(-my,Math.min(my,this._view.y));}
+    _applyView(){
+      const g=this._geom();const fit=this.getAttribute('fit')||'cover';
+      if(fit!=='cover'||!g){this._img.style.width='100%';this._img.style.height='100%';this._img.style.left='50%';this._img.style.top='50%';this._img.style.objectFit=fit;this._img.style.objectPosition=this.getAttribute('position')||'50% 50%';return;}
+      const k=g.base*this._view.s;const w=(g.iw*k/g.fw*100)+'%';const h=(g.ih*k/g.fh*100)+'%';const l=(50+this._view.x)+'%';const t=(50+this._view.y)+'%';
+      this._img.style.width=w;this._img.style.height=h;this._img.style.left=l;this._img.style.top=t;this._img.style.objectFit='';
+      this._spill.style.width=w;this._spill.style.height=h;this._spill.style.left=l;this._spill.style.top=t;
+    }
+    _commitView(){
+      const v={s:this._view.s,x:this._view.x,y:this._view.y};if(this._userUrl)v.u=this._userUrl;
+      if(this.id)setSlot(this.id,v);else{this._local=v;}
+    }
+    _render(){
+      const mask=this.getAttribute('mask');const shape=(this.getAttribute('shape')||'rounded').toLowerCase();
+      let radius='';if(shape==='circle')radius='50%';else if(shape==='pill')radius='9999px';
+      else if(shape==='rounded'){const n=parseFloat(this.getAttribute('radius'));radius=(Number.isFinite(n)?n:12)+'px';}
+      this._frame.style.borderRadius=mask?'':radius;this._frame.style.clipPath=mask||'';
+      this._ring.style.borderRadius=mask?'':radius;this._ring.style.display=mask?'none':'';
+      const editable=!!(window.omelette&&window.omelette.writeFile);this.toggleAttribute('data-editable',editable);this._sub.style.display=editable?'':'none';
+      let stored=this.id?getSlot(this.id):this._local;
+      if(stored&&stored.u&&!/^data:image\//i.test(stored.u))stored=null;
+      const srcAttr=this.getAttribute('src')||'';this._userUrl=(stored&&stored.u)||null;const url=this._userUrl||srcAttr;
+      if(!this.hasAttribute('data-reframe')){this._view={s:stored&&Number.isFinite(stored.s)?clampS(stored.s):1,x:stored&&Number.isFinite(stored.x)?stored.x:0,y:stored&&Number.isFinite(stored.y)?stored.y:0};}
+      this._cap.textContent=this.getAttribute('placeholder')||'Drop an image';
+      if(url){
+        if(this._img.getAttribute('src')!==url){this._img.src=url;this._ghost.src=url;}
+        this._img.style.display='block';this._empty.style.display='none';this.setAttribute('data-filled','');this._clampView();this._applyView();
+      }else{
+        this._img.style.display='none';this._img.removeAttribute('src');this._ghost.removeAttribute('src');this._empty.style.display='flex';this.removeAttribute('data-filled');
+      }
+    }
+  }
+  if(!customElements.get('image-slot'))customElements.define('image-slot',ImageSlot);
+})();
+</script>
+
+<!-- tweaks panel + app -->
+<script type="text/babel">
+// ── Tweaks Panel ─────────────────────────────────────────────────────────────
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    transform:scale(var(--dc-inv-zoom,1));transform-origin:bottom right;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+  .twk-field{appearance:none;box-sizing:border-box;width:100%;min-width:0;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+  .twk-chips{display:flex;gap:6px}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;
+    padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;
+    box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);
+    transition:transform .12s cubic-bezier(.3,.7,.4,1),box-shadow .12s}
+  .twk-chip:hover{transform:translateY(-1px);box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.12)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 1.5px rgba(0,0,0,.85),0 2px 6px rgba(0,0,0,.15)}
+  .twk-chip>span{position:absolute;top:0;bottom:0;right:0;width:34%;
+    display:flex;flex-direction:column;box-shadow:-1px 0 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i{flex:1;box-shadow:0 -1px 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i:first-child{box-shadow:none}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+`;
+
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+      ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+    window.dispatchEvent(new CustomEvent('tweakchange', { detail: edits }));
+  }, []);
+  return [values, setTweak];
+}
+
+function TweaksPanel({ title = 'Tweaks', children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current; if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    offsetRef.current = {
+      x: Math.min(Math.max(PAD, window.innerWidth - w - PAD), Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(Math.max(PAD, window.innerHeight - h - PAD), Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(clampToViewport) : null;
+    if (ro) { ro.observe(document.documentElement); return () => ro.disconnect(); }
+    window.addEventListener('resize', clampToViewport);
+    return () => window.removeEventListener('resize', clampToViewport);
+  }, [open, clampToViewport]);
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+  const dismiss = () => { setOpen(false); window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*'); };
+  const onDragStart = (e) => {
+    const panel = dragRef.current; if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = { x: startRight - (ev.clientX - sx), y: startBottom - (ev.clientY - sy) };
+      clampToViewport();
+    };
+    const up = () => { window.removeEventListener('mousemove', move); window.removeEventListener('mouseup', up); };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks" onMouseDown={e => e.stopPropagation()} onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">{children}</div>
+      </div>
+    </>
+  );
+}
+
+function TweakSection({ label, children }) {
+  return <><div className="twk-sect">{label}</div>{children}</>;
+}
+
+function TweakRow({ label, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl"><span>{label}</span></div>
+      {children}
+    </div>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value} onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <select className="twk-field" value={value} onChange={e => onChange(e.target.value)}>
+        {options.map(o => { const v = typeof o === 'object' ? o.value : o; const l = typeof o === 'object' ? o.label : o; return <option key={v} value={v}>{l}</option>; })}
+      </select>
+    </TweakRow>
+  );
+}
+
+function __twkIsLight(hex) {
+  const h = String(hex).replace('#', '');
+  const x = h.length === 3 ? h.replace(/./g, c => c + c) : h.padEnd(6, '0');
+  const n = parseInt(x.slice(0, 6), 16);
+  if (Number.isNaN(n)) return true;
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  return r * 299 + g * 587 + b * 114 > 148000;
+}
+
+const __TwkCheck = ({ light }) => (
+  <svg viewBox="0 0 14 14" aria-hidden="true">
+    <path d="M3 7.2 5.8 10 11 4.2" fill="none" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" stroke={light ? 'rgba(0,0,0,.78)' : '#fff'} />
+  </svg>
+);
+
+function TweakColor({ label, value, options, onChange }) {
+  if (!options || !options.length) return null;
+  const key = o => String(JSON.stringify(o)).toLowerCase();
+  const cur = key(value);
+  return (
+    <TweakRow label={label}>
+      <div className="twk-chips" role="radiogroup">
+        {options.map((o, i) => {
+          const colors = Array.isArray(o) ? o : [o];
+          const [hero, ...rest] = colors;
+          const sup = rest.slice(0, 4);
+          const on = key(o) === cur;
+          return (
+            <button key={i} type="button" className="twk-chip" role="radio"
+                    aria-checked={on} data-on={on ? '1' : '0'}
+                    style={{ background: hero }} onClick={() => onChange(o)}>
+              {sup.length > 0 && <span>{sup.map((c, j) => <i key={j} style={{ background: c }} />)}</span>}
+              {on && <__TwkCheck light={__twkIsLight(hero)} />}
+            </button>
+          );
+        })}
+      </div>
+    </TweakRow>
+  );
+}
+
+// ── Main App ─────────────────────────────────────────────────────────────────
+const { useState, useEffect, useMemo } = React;
+
+const TWEAK_DEFAULTS = {
+  palette: ['#FCF8F2','#EFB8A0','#E6A39B','#C8A26B','#3A2A22'],
+  displayFont: 'Instrument Serif',
+  confetti: true,
+  showCountdown: true
+};
+
+function useCountdown(targetISO) {
+  const target = useMemo(() => new Date(targetISO).getTime(), [targetISO]);
+  const [now, setNow] = useState(Date.now());
+  useEffect(() => {
+    const t = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(t);
+  }, []);
+  const diff = Math.max(0, target - now);
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor(diff / 3600000) % 24;
+  const m = Math.floor(diff / 60000) % 60;
+  const s = Math.floor(diff / 1000) % 60;
+  return { d, h, m, s };
+}
+
+function Confetti({ enabled }) {
+  const dots = useMemo(() => {
+    const colors = ['var(--blush)','var(--peach)','var(--rose)','var(--gold)','#FFFFFF'];
+    const arr = [];
+    let seed = 7;
+    const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; };
+    for (let i = 0; i < 32; i++) {
+      arr.push({
+        left: rnd() * 100, top: rnd() * 100,
+        size: 6 + rnd() * 16,
+        color: colors[Math.floor(rnd() * colors.length)],
+        delay: rnd() * 8, dur: 9 + rnd() * 9,
+        x: (rnd() - 0.5) * 30, y: (rnd() - 0.5) * 30,
+        opacity: 0.30 + rnd() * 0.35,
+      });
+    }
+    return arr;
+  }, []);
+  if (!enabled) return null;
+  return (
+    <div className="confetti" aria-hidden="true">
+      <style>{`@keyframes drift-a { 0%,100%{transform:translate(0,0)} 50%{transform:translate(var(--x),var(--y))} }`}</style>
+      {dots.map((d, i) => (
+        <span key={i} style={{
+          left: d.left + '%', top: d.top + '%', width: d.size, height: d.size,
+          background: d.color, opacity: d.opacity,
+          ['--x']: d.x + 'px', ['--y']: d.y + 'px',
+          animation: `drift-a ${d.dur}s ease-in-out ${d.delay}s infinite`
+        }} />
+      ))}
+    </div>
+  );
+}
+
+function Hero({ showCountdown }) {
+  const c = useCountdown('2026-05-31T11:00:00Z');
+  return (
+    <section className="hero" id="hero">
+      <div className="wrap">
+        <div className="hero-grid">
+          <div>
+            <div className="hero-meta">
+              <span className="pip" />
+              <span className="eyebrow">A London Wedding &middot; Spring 2026</span>
+            </div>
+            <h1 className="display hero-title">
+              Tamar<span className="and">&amp;</span>Renata
+            </h1>
+            <div className="hero-sub">
+              <div className="row"><span className="k">When</span><span className="v">Sunday, 31 May 2026 &middot; 12:00</span></div>
+              <div className="row"><span className="k">Where</span><span className="v">Camden Town Hall, London</span></div>
+              <div className="row"><span className="k">After</span><span className="v">Reception at The Ivy Club, The Loft</span></div>
+            </div>
+          </div>
+
+          {showCountdown && (
+            <div className="datecard" aria-label="Wedding date">
+              <div className="month">Sunday</div>
+              <div className="day display">31</div>
+              <div className="year">May &middot; 2026</div>
+              <hr />
+              <div className="cd">
+                <div><div className="n display">{String(c.d).padStart(2, '0')}</div><div className="l">Days</div></div>
+                <div><div className="n display">{String(c.h).padStart(2, '0')}</div><div className="l">Hrs</div></div>
+                <div><div className="n display">{String(c.m).padStart(2, '0')}</div><div className="l">Min</div></div>
+                <div><div className="n display">{String(c.s).padStart(2, '0')}</div><div className="l">Sec</div></div>
+              </div>
+              <div className="footnote">
+                <span><span className="pip" />12:00 sharp</span>
+                <span>Camden Town Hall</span>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Welcome() {
+  return (
+    <section className="s" id="welcome">
+      <div className="wrap">
+        <div className="s-head reveal">
+          <span className="s-num">00 &middot; Welcome</span>
+          <h2 className="display s-title">We&rsquo;re so glad <em>you&rsquo;re here.</em></h2>
+        </div>
+
+        <div className="us-grid">
+          <div className="us-card reveal d1">
+            <p>Hi friends and family,</p>
+            <p>We&rsquo;re getting married in London on 31 May 2026, and we built this little page so everything you might need lives in one place. Times, addresses, dress code, the lot.</p>
+            <p>Some of you are travelling a long way and we don&rsquo;t take that lightly. We&rsquo;ve tried to make the weekend feel like a slow, happy bundle of meals and toasts rather than a checklist of events. Eat well, wear something you love, and we&rsquo;ll see you soon.</p>
+            <p>If anything on this page is unclear, just text one of us. Really.</p>
+            <span className="sig">Tamar &amp; Renata</span>
+          </div>
+
+          <div className="photo-collage reveal d2">
+            <figure className="p1"><img src="project/photos/park.jpeg" alt="Tamar and Renata on a balcony" /></figure>
+            <figure className="p2"><img src="project/photos/kiss.jpeg" alt="Tamar and Renata in the park" /></figure>
+            <figure className="p3"><img src="project/photos/ifyouknow.jpeg" alt="Tamar and Renata in front of a London sign" /></figure>
+            <figure className="p4"><img src="project/photos/booth.jpeg" alt="Photo booth strip" /></figure>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Lunch() {
+  return (
+    <section className="s" id="lunch" style={{ background: 'linear-gradient(180deg, transparent, rgba(242,215,206,.14))' }}>
+      <div className="wrap">
+        <div className="s-head reveal">
+          <span className="s-num">01 &middot; Saturday, 30 May</span>
+          <h2 className="display s-title">The Welcome <em>Lunch</em></h2>
+          <p className="s-sub">A gentle start to the weekend. Long table, Greek small plates, and time to actually talk to people before the wedding-day blur.</p>
+        </div>
+
+        <article className="event reveal d1">
+          <div className="copy">
+            <h3>Attica<span className="where">Greek, in Exmouth Market</span></h3>
+            <p>Attica is one of our favourite spots in town: small, generous, properly Greek, the kind of place where the meze keeps appearing and nobody notices the afternoon disappearing.</p>
+            <p>It sits on <strong>Exmouth Market</strong>, a pedestrianised stretch tucked behind Farringdon that always feels like a tiny village dropped into central London. Independent bookshops, a proper bakery, natural-wine bars, gelato, the smell of someone else&rsquo;s coffee. If you arrive with time to spare, just wander the street; there&rsquo;s no wrong door to open.</p>
+
+            <div className="chamber-slot reveal d2">
+              <image-slot
+                id="attica"
+                shape="rounded"
+                radius="14"
+                placeholder="drag in a photo of Attica or Exmouth Market"
+              ></image-slot>
+              <div className="chamber-cap">Attica &middot; Exmouth Market</div>
+            </div>
+          </div>
+          <div className="facts">
+            <div className="stamp"><span className="dot" />Cosy &amp; long</div>
+            <dl className="meta">
+              <div className="row"><div className="k">Date</div><div className="v big display">Saturday, 30 May 2026</div></div>
+              <div className="row"><div className="k">Time</div><div className="v big display">From 13:00</div></div>
+              <div className="row"><div className="k">Venue</div><div className="v">Attica</div></div>
+              <div className="row"><div className="k">Address</div><div className="v"><a href="https://maps.google.com/?q=Attica+56+Rosebery+Ave+London+EC1R+4RR" target="_blank" rel="noopener">56&ndash;60 Rosebery Ave<br />Exmouth Market, London EC1R&nbsp;4RR</a></div></div>
+              <div className="row"><div className="k">Dress</div><div className="v">Whatever you want!</div></div>
+              <div className="row"><div className="k">Vibe</div><div className="v">A nice, cosy lunch.</div></div>
+            </dl>
+          </div>
+        </article>
+      </div>
+    </section>
+  );
+}
+
+function Ceremony() {
+  return (
+    <section className="s" id="ceremony">
+      <div className="wrap">
+        <div className="s-head reveal">
+          <span className="s-num">02 &middot; Sunday, 31 May &middot; Morning</span>
+          <h2 className="display s-title">The <em>Ceremony</em></h2>
+          <p className="s-sub">A short, civil ceremony in the Council Chamber. We chose Camden Town Hall on purpose: it&rsquo;s the town hall of the council where we actually live, so it felt right to get married in our own little corner of London.</p>
+        </div>
+
+        <article className="event reveal d1">
+          <div className="copy">
+            <h3>Camden Town Hall<span className="where">The Council Chamber</span></h3>
+            <p>Camden Town Hall opened in 1937 in a kind of stripped-classical style: high ceilings, dark wood panelling, civic seriousness softened by very London quirks. It isn&rsquo;t a typical wedding venue, which is exactly why we love it. There&rsquo;s no aisle runner, no chandelier, no manicured lawn; just a beautiful old chamber that has watched a lot of life pass through.</p>
+            <p>It&rsquo;s also <strong>our</strong> town hall. We live in the borough, walk past it most weeks, and there was something quietly lovely about choosing the building that&rsquo;s been the backdrop to our actual everyday life.</p>
+
+            <div className="chamber-slot reveal d2">
+              <image-slot
+                id="chamber"
+                shape="rounded"
+                radius="14"
+                placeholder="drag in a photo of the Council Chamber"
+              ></image-slot>
+              <div className="chamber-cap">Council Chamber, Camden Town Hall</div>
+            </div>
+
+            <div className="ceremony-callout" role="note">
+              <div className="big display">12:00</div>
+              <div className="small">
+                The ceremony begins <b>12:00 sharp</b>. Please be seated by <b>11:45</b> so we can start on time. Town Hall ceremonies run to a strict schedule, so if you&rsquo;re late, you may have to wait outside until we&rsquo;re married.
+              </div>
+            </div>
+          </div>
+
+          <div className="facts">
+            <div className="stamp"><span className="dot" />Be early</div>
+            <dl className="meta">
+              <div className="row"><div className="k">Date</div><div className="v big display">Sunday, 31 May 2026</div></div>
+              <div className="row"><div className="k">Arrive</div><div className="v big display">11:45</div></div>
+              <div className="row"><div className="k">Begins</div><div className="v big display" style={{ color: 'var(--rose)' }}>12:00 sharp</div></div>
+              <div className="row"><div className="k">Venue</div><div className="v">Council Chamber<br />Camden Town Hall</div></div>
+              <div className="row"><div className="k">Address</div><div className="v"><a href="https://maps.google.com/?q=Camden+Town+Hall+5+Judd+St+London+WC1H+9JE" target="_blank" rel="noopener">5 Judd St<br />London WC1H&nbsp;9JE</a></div></div>
+              <div className="row"><div className="k">Dress</div><div className="v">Smart casual. No denim or sneakers, please.</div></div>
+            </dl>
+          </div>
+        </article>
+      </div>
+    </section>
+  );
+}
+
+function BusIcon() {
+  return (
+    <svg className="bus-svg" width="92" height="62" viewBox="0 0 92 62" aria-hidden="true">
+      <defs>
+        <linearGradient id="bg1" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stopColor="#D7423A" />
+          <stop offset="1" stopColor="#B8332C" />
+        </linearGradient>
+      </defs>
+      <rect x="4" y="6" width="78" height="42" rx="6" fill="url(#bg1)" />
+      <g fill="#FFFCF6" opacity=".92">
+        <rect x="9" y="11" width="10" height="9" rx="1.5" />
+        <rect x="21" y="11" width="10" height="9" rx="1.5" />
+        <rect x="33" y="11" width="10" height="9" rx="1.5" />
+        <rect x="45" y="11" width="10" height="9" rx="1.5" />
+        <rect x="57" y="11" width="10" height="9" rx="1.5" />
+        <rect x="69" y="11" width="9" height="9" rx="1.5" />
+      </g>
+      <rect x="6" y="24" width="74" height="2" fill="#7a1f1a" opacity=".6" />
+      <g fill="#FFFCF6" opacity=".92">
+        <rect x="9" y="29" width="14" height="10" rx="1.5" />
+        <rect x="25" y="29" width="14" height="10" rx="1.5" />
+        <rect x="41" y="29" width="14" height="10" rx="1.5" />
+        <rect x="57" y="29" width="14" height="10" rx="1.5" />
+      </g>
+      <rect x="73" y="27" width="7" height="14" rx="1.5" fill="#2a1311" opacity=".4" />
+      <circle cx="83" cy="34" r="2" fill="#FFE7A8" />
+      <circle cx="22" cy="50" r="7" fill="#2A1A14" />
+      <circle cx="22" cy="50" r="2.5" fill="#FCF8F2" />
+      <circle cx="66" cy="50" r="7" fill="#2A1A14" />
+      <circle cx="66" cy="50" r="2.5" fill="#FCF8F2" />
+      <rect x="9" y="7" width="46" height="3.5" rx=".8" fill="#FFE7A8" opacity=".85" />
+    </svg>
+  );
+}
+
+function Reception() {
+  return (
+    <section className="s" id="reception" style={{ background: 'linear-gradient(180deg, transparent, rgba(239,184,160,.14))' }}>
+      <div className="wrap">
+        <div className="s-head reveal">
+          <span className="s-num">03 &middot; Sunday, 31 May &middot; Afternoon onwards</span>
+          <h2 className="display s-title">The <em>Reception</em></h2>
+          <p className="s-sub">From the Town Hall we all move together to The Loft at The Ivy Club for lunch, toasts, and a long afternoon that we fully intend to let run into the evening.</p>
+        </div>
+
+        <article className="event reveal d1">
+          <div className="copy">
+            <h3>The Ivy Club<span className="where">The Loft, Covent Garden</span></h3>
+            <p>The Loft is the top-floor room at The Ivy Club, a small private space with big windows and a quiet feeling that we instantly liked. Lunch will be sit-down and unhurried; afterwards, expect drinks, dancing, and probably some slightly emotional speeches.</p>
+
+            <div className="chamber-slot reveal d2">
+              <image-slot
+                id="ivy"
+                shape="rounded"
+                radius="14"
+                placeholder="drag in a photo of The Ivy Club / The Loft"
+              ></image-slot>
+              <div className="chamber-cap">The Loft &middot; The Ivy Club</div>
+            </div>
+
+            <div className="bus-callout">
+              <BusIcon />
+              <div>
+                <div className="bus-title display">A big red London bus will take us there.</div>
+                <div className="bus-sub">Straight from Camden Town Hall to The Ivy Club, right after the ceremony. No cabs, no maps. Stay with the group as we leave.</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="facts">
+            <div className="stamp"><span className="dot" />Lunch &amp; dance</div>
+            <dl className="meta">
+              <div className="row"><div className="k">Date</div><div className="v big display">Sunday, 31 May 2026</div></div>
+              <div className="row"><div className="k">Time</div><div className="v big display">From 13:00</div></div>
+              <div className="row"><div className="k">Venue</div><div className="v">The Loft<br />The Ivy Club</div></div>
+              <div className="row"><div className="k">Address</div><div className="v"><a href="https://maps.google.com/?q=The+Ivy+Club+9+West+Street+London+WC2H+9NE" target="_blank" rel="noopener">9 West St<br />London WC2H&nbsp;9NE</a></div></div>
+              <div className="row"><div className="k">Dress</div><div className="v">Smart casual. No denim or sneakers, please.</div></div>
+              <div className="row"><div className="k">Travel</div><div className="v">London bus from Camden Town Hall, on us.</div></div>
+            </dl>
+          </div>
+        </article>
+      </div>
+    </section>
+  );
+}
+
+const FAVOURITES = [
+  { n:'01', name:"Sticks'n'Sushi", tag:'Japanese · sushi', emoji:'🍣',
+    desc:"A reliable, slightly fancy sushi date. There are several across London, the Covent Garden and St Paul's branches are both lovely.",
+    picks:[{ what:'Tuna tartare + beef tataki' }],
+    map:'https://maps.google.com/?q=Sticks+n+Sushi+London' },
+  { n:'02', name:'Padella', tag:'Italian pasta', emoji:'🍝',
+    desc:"Hand-rolled pasta done loudly and well. Get the app and put yourself in the queue before you walk over, the wait is part of the ritual.",
+    picks:[{ what:'Pici cacio e pepe' }, { what:'Beef shin ragù pappardelle' }],
+    map:'https://maps.google.com/?q=Padella+London' },
+  { n:'03', name:'Bar Termini', tag:'Negronis · intimate', emoji:'🍸',
+    desc:'A tiny, perfect bar in Soho that takes its Italian aperitivo extremely seriously. Eight stools, very good Negronis, exactly the right amount of jazz.',
+    picks:[{ what:'Salame & burrata' }],
+    map:'https://maps.google.com/?q=Bar+Termini+London' },
+  { n:'04', name:'Mother Mash', tag:'Bangers, mash, gravy', emoji:'🥔',
+    desc:"Proper British comfort food: sausage, mash, gravy, in every combination. The Covent Garden one is better than the other; trust us.",
+    picks:[{ what:"Cheese mustard mash + Cumberland + farmer's gravy" }],
+    map:'https://maps.google.com/?q=Mother+Mash+Covent+Garden+London' },
+  { n:'05', name:'Prufrock Coffee', tag:'Coffee · Scandi feel', emoji:'☕',
+    desc:"Our favourite coffee in town. Bright, calm, the kind of place where you go for one flat white and end up reading for an hour.",
+    picks:[],
+    map:'https://maps.google.com/?q=Prufrock+Coffee+London' },
+  { n:'06', name:'Vnilla', tag:'Dessert', emoji:'🍰',
+    desc:"A small, sweet dessert bar that we keep finding excuses to revisit. If you only order one thing, make it the banana pudding.",
+    picks:[{ what:'Banana pudding' }],
+    map:'https://maps.google.com/?q=Vnilla+London' },
+  { n:'07', name:'Udderlicious', tag:'Ice cream', emoji:'🍦',
+    desc:"Independent ice cream made fresh in small batches. There's usually a queue out the door in summer; it's worth it.",
+    picks:[{ what:'Chocolate peanut butter' }, { what:'Salted vanilla cookies' }],
+    map:'https://maps.google.com/?q=Udderlicious+Islington+London' },
+  { n:'08', name:"Regent's Park", tag:'Park · central', emoji:'🌳',
+    desc:"Way bigger than you'd guess from a map. Lake in the middle, rose garden in summer, and a hill at the top with the best free view of London.",
+    picks:[],
+    map:"https://maps.google.com/?q=Regent's+Park+London" },
+];
+
+function Favourites() {
+  return (
+    <section className="s" id="favourites">
+      <div className="wrap">
+        <div className="s-head reveal">
+          <span className="s-num">04 &middot; Free time?</span>
+          <h2 className="display s-title">Our <em>favourites</em> to eat<br />(and one park).</h2>
+          <p className="s-sub">A short, biased list. These are the places we genuinely go back to, not a top-of-Google guide. If you have an afternoon spare around the wedding, try one.</p>
+        </div>
+
+        <div className="favs">
+          {FAVOURITES.map((f, i) => (
+            <article className="fav" key={f.n} style={{ transitionDelay: `${(i % 4) * 70}ms` }}>
+              <div className="fav-emoji" aria-hidden="true">{f.emoji}</div>
+              <div className="fav-h">
+                <h3 className="fav-name display">{f.name}</h3>
+                <span className="fav-num">{f.n}</span>
+              </div>
+              <div className="fav-tag">{f.tag}</div>
+              <p className="fav-desc">{f.desc}</p>
+              {f.picks.length > 0 && (
+                <div className="fav-picks">
+                  {f.picks.map((p, j) => (
+                    <div className="fav-pick" key={j}>
+                      <span className="who">Must order</span>
+                      <span>{p.what}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+              <a className="fav-map" href={f.map} target="_blank" rel="noopener">
+                Open in Maps
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M3 9 9 3M5 3h4v4" /></svg>
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer>
+      <div className="wrap foot">
+        <div className="orn">a presto</div>
+        <div className="big display">See you <em style={{ color: 'var(--rose)' }}>soon</em>.</div>
+        <div className="small">Tamar &amp; Renata &middot; 31 May 2026 &middot; London</div>
+      </div>
+    </footer>
+  );
+}
+
+const PALETTES = [
+  ['#FCF8F2','#EFB8A0','#E6A39B','#C8A26B','#3A2A22'],
+  ['#F8F0EA','#D9A89E','#C98B89','#B58A4F','#352323'],
+  ['#FBF5E8','#EBC7A0','#D2A07A','#A87B45','#33271C'],
+  ['#F5EFEC','#C7A99F','#A07873','#8C6A3E','#2A211C'],
+];
+
+function mix(a, b, t) {
+  const pa = hex2rgb(a), pb = hex2rgb(b);
+  return '#' + pa.map((c, i) => Math.round(c * (1 - t) + pb[i] * t).toString(16).padStart(2, '0')).join('');
+}
+function hexA(hex, a) { const [r, g, b] = hex2rgb(hex); return `rgba(${r},${g},${b},${a})`; }
+function hex2rgb(hex) { const h = hex.replace('#', ''); return [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16)); }
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  useEffect(() => {
+    const [bg, peach, rose, gold, ink] = t.palette;
+    const r = document.documentElement.style;
+    r.setProperty('--bg', bg);
+    r.setProperty('--peach', peach);
+    r.setProperty('--rose', rose);
+    r.setProperty('--gold', gold);
+    r.setProperty('--ink', ink);
+    r.setProperty('--ink-soft', mix(ink, bg, 0.35));
+    r.setProperty('--ink-mute', mix(ink, bg, 0.6));
+    r.setProperty('--blush', mix(peach, bg, 0.55));
+    r.setProperty('--line', hexA(ink, 0.10));
+  }, [t.palette]);
+
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      '--display',
+      `"${t.displayFont}", "Cormorant Garamond", Georgia, serif`
+    );
+  }, [t.displayFont]);
+
+  useEffect(() => {
+    if (typeof window.__rewireReveal === 'function') window.__rewireReveal();
+  }, []);
+
+  return (
+    <>
+      <Confetti enabled={t.confetti} />
+      <Hero showCountdown={t.showCountdown} />
+      <Welcome />
+      <Lunch />
+      <Ceremony />
+      <Reception />
+      <Favourites />
+      <Footer />
+
+      <TweaksPanel title="Tweaks">
+        <TweakSection label="Palette" />
+        <TweakColor label="Mood" value={t.palette} options={PALETTES}
+          onChange={v => setTweak('palette', v)} />
+        <TweakSection label="Type" />
+        <TweakSelect label="Display font" value={t.displayFont}
+          options={['Instrument Serif','Italiana','Cormorant Garamond','Playfair Display','DM Serif Display']}
+          onChange={v => setTweak('displayFont', v)} />
+        <TweakSection label="Details" />
+        <TweakToggle label="Floating confetti" value={t.confetti}
+          onChange={v => setTweak('confetti', v)} />
+        <TweakToggle label="Show date card" value={t.showCountdown}
+          onChange={v => setTweak('showCountdown', v)} />
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('app')).render(<App />);
+</script>
+
+<script>
+  (function(){
+    const topbar  = document.getElementById('topbar');
+    const drawer  = document.getElementById('drawer');
+    const scrim   = document.getElementById('scrim');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('drawerClose');
+    const nav     = document.getElementById('drawerNav');
+
+    const openDrawer = () => {
+      drawer.classList.add('open');
+      scrim.classList.add('open');
+      menuBtn.setAttribute('aria-expanded','true');
+      drawer.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+    };
+    const closeDrawer = () => {
+      drawer.classList.remove('open');
+      scrim.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded','false');
+      drawer.setAttribute('aria-hidden','true');
+      document.body.style.overflow='';
+    };
+    menuBtn.addEventListener('click', openDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+    scrim.addEventListener('click', closeDrawer);
+    nav.addEventListener('click', e => {
+      const link = e.target.closest('a');
+      if (!link) return;
+      e.preventDefault();
+      const href = link.getAttribute('href');
+      closeDrawer();
+      requestAnimationFrame(() => {
+        const target = document.querySelector(href);
+        if (target) {
+          const y = target.getBoundingClientRect().top + window.scrollY - 60;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+          history.replaceState(null, '', href);
+        }
+      });
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && drawer.classList.contains('open')) closeDrawer();
+    });
+
+    document.getElementById('siderail').addEventListener('click', e => {
+      const link = e.target.closest('a');
+      if (!link) return;
+      e.preventDefault();
+      const href = link.getAttribute('href');
+      const target = document.querySelector(href);
+      if (target) {
+        const y = target.getBoundingClientRect().top + window.scrollY - 60;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        history.replaceState(null, '', href);
+      }
+    });
+
+    const sectionIds = ['welcome','lunch','ceremony','reception','favourites'];
+    const onScroll = () => {
+      topbar.classList.toggle('scrolled', window.scrollY > 24);
+      let active = sectionIds[0];
+      const fromTop = window.scrollY + 160;
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= fromTop) active = id;
+      }
+      document.querySelectorAll('#drawerNav a, #siderail a').forEach(a => {
+        a.classList.toggle('active', a.getAttribute('href') === '#' + active);
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: .12, rootMargin: '0px 0px -8% 0px' });
+    const wire = () => document.querySelectorAll('.reveal, .fav').forEach(el => io.observe(el));
+    setTimeout(wire, 80);
+    window.__rewireReveal = wire;
+  })();
+</script>
+</body>
+</html>
